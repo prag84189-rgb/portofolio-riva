@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portofolio | Backend Developer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- ================= CSS ================= -->
+<style>
+    *, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f7f7f9;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --accent: #6366f1;
+  --accent-soft: rgba(99, 102, 241, 0.1);
+  --radius: 14px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --transition: 0.25s ease;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.scrolled {
+  border-bottom-color: var(--border);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.04);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.logo {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--accent);
+}
+
+.nav-links { display: flex; gap: 32px; }
+
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: color var(--transition);
+  position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: var(--text); }
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -5px;
+  width: 100%; height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.menu-btn span {
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+}
+
+/* ===== Hero + Parallax ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 100px 0 70px;
+  overflow: hidden;
+}
+
+.hero-parallax {
+  position: absolute;
+  inset: -15% 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 70% 30%, rgba(99, 102, 241, 0.08), transparent),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(16, 185, 129, 0.05), transparent);
+  will-change: transform;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hero-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+.hero-name {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2.3rem, 5vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 400px;
+  margin-bottom: 28px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+}
+
+.btn-outline {
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  background: #fff;
+}
+
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Profile Photo */
+.profile-photo {
+  width: 280px;
+  height: 280px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.profile-photo::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #a78bfa);
+  z-index: -1;
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== Sections ===== */
+.section { padding: 90px 0; }
+.section-alt { background: var(--bg-alt); }
+
+.section-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 36px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+/* ===== About ===== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.about-text p {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.about-text strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.skills span {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 6px 13px;
+  border-radius: 8px;
+}
+
+.about-image {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.about-image img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.about-image:hover img { transform: scale(1.04); }
+
+/* ===== Projects ===== */
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.project:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+}
+
+.project-image { overflow: hidden; }
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 190px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.project:hover .project-image img { transform: scale(1.05); }
+
+.project-body {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.project h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.project-links { display: flex; gap: 14px; flex-shrink: 0; }
+
+.project-links a {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.project-links a:hover { text-decoration: underline; }
+
+.project p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+}
+
+.project-tech { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.project-tech span {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted);
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* ===== Contact ===== */
+.contact-text {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.contact-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.contact-list a {
+  font-weight: 600;
+  color: var(--accent);
+  transition: opacity var(--transition);
+}
+
+.contact-list a:hover { opacity: 0.75; }
+
+/* ===== Footer ===== */
+.footer {
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 800px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-desc { margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; }
+
+  .profile-photo {
+    width: 220px;
+    height: 220px;
+  }
+
+  .about-grid { grid-template-columns: 1fr; }
+  .about-image img { height: 220px; }
+
+  .project { grid-template-columns: 1fr; }
+  .project-image img { height: 180px; }
+}
+
+@media (max-width: 640px) {
+  .menu-btn { display: flex; }
+
+  .nav-links {
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: #fff;
+    flex-direction: column;
+    padding: 24px;
+    gap: 18px;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    transform: translateY(-130%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease;
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 110px 0 60px;
+  }
+
+  .hero-actions { flex-direction: column; }
+  .btn { width: 100%; justify-content: center; }
+  .project-top { flex-direction: column; }
+  .section { padding: 70px 0; }
+}
+</style>
+  
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="logo">Vidio Grafis</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-parallax" id="parallaxBg"></div>
+    <div class="container hero-content">
+      <div class="hero-left" data-aos="fade-right">
+        <p class="hero-label">Vidio Grafis</p>
+        <h1 class="hero-name">Riva Rovani</h1>
+        <p class="hero-desc">
+          Move. Create. Inspire.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">Lihat Projects</a>
+          <a href="#contact" class="btn btn-outline">Hubungi Saya</a>
+        </div>
+      </div>
+      <div class="hero-right" data-aos="fade-left" data-aos-delay="150">
+        <div class="profile-photo">
+          <img src="rivapp.jpg" alt="Foto Profil" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">About Me</h2>
+      <div class="about-grid">
+        <div class="about-text" data-aos="fade-up" data-aos-delay="100">
+          <p>
+Saya adalah seorang <strong> Motion Graphic Designer</strong> yang memiliki ketertarikan dalam menciptakan visual yang kreatif, dinamis, dan menarik. Saya menggabungkan desain grafis, animasi, dan video editing untuk mengubah ide menjadi visual yang mampu menyampaikan pesan dengan jelas.
+
+Saya berfokus pada Motion Graphics, Video Editing, Visual Effects, dan 3D Animation. Bagi saya, sebuah video bukan hanya tentang gambar yang bergerak, tetapi bagaimana setiap gerakan, warna, tipografi, dan audio dapat membangun sebuah cerita.
+
+Saya terus mengembangkan kemampuan melalui berbagai proyek dan eksplorasi teknik baru untuk menghasilkan karya yang modern, kreatif, dan memiliki karakter.
+
+          </p>
+          <p>
+            Teknologi yang sering saya pakai: <strong>Premier Pro</strong> 
+          </p>
+          <div class="skills">
+            <span>Motion Graphics</span>
+            <span>Video Editing</span>
+            <span>Visual Effects (VFX)</span>
+            <span>Sound Design</span>
+            <span>Color Grading</span>
+          </div>
+        </div>
+        <div class="about-image" data-aos="fade-up" data-aos-delay="200">
+          <img src="naufal.jpg" alt="Coding Backend" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Projects</h2>
+      <div class="projects">
+
+        <article class="project" data-aos="fade-up" data-aos-delay="100">
+          <div class="project-image">
+            <img src="izzudin 1.png" alt="E-Commerce API" />
+          </div>
+          <div class="project-body">
+            <div class="project-top">
+              <h3>Adobe Premiere Pro</h3>
+              <div class="project-links">
+                <a href="#" target="_blank" rel="noopener">Demo</a>
+                <a href="#" target="_blank" rel="noopener">GitHub</a>
+              </div>
+            </div>
+            <p>proses editing dan penyusunan video menggunakan Adobe Premiere Pro. Dalam project ini, beberapa media seperti video dan audio dikombinasikan ke dalam timeline untuk menghasilkan video yang lebih terstruktur dan menarik, 
+                Proses pengerjaan meliputi pemilihan dan penyusunan footage, pemotongan klip, pengaturan audio, penyusunan timeline, serta penyesuaian elemen visual. Setiap elemen ditempatkan pada track yang berbeda agar proses editing lebih mudah dikontrol dan hasil akhir video lebih rapi.
+            </p>
+            <div class="project-tech">
+              <span>Video Editing</span><span>Cutting & Trimming</span><span>Timeline Management</span><span>Audio Editing</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project" data-aos="fade-up" data-aos-delay="200">
+          <div class="project-image">
+            <img src="izzudin 2.png" alt="Auth Service" />
+          </div>
+          <div class="project-body">
+            <div class="project-top">
+              <h3>Cinematic Pesantren An-Nawawi</h3>
+              <div class="project-links">
+                <a href="#" target="_blank" rel="noopener">Demo</a>
+                <a href="#" target="_blank" rel="noopener">GitHub</a>
+              </div>
+            </div>
+            <p>proses pembuatan video menggunakan Adobe Premiere Pro 2025 yang menggabungkan footage kegiatan atau lingkungan Pondok Pesantren An-Nawawi dengan background music, teks, grafis, dan pengaturan warna, 
+                Pada timeline terlihat beberapa elemen yang digunakan, seperti video footage, graphic, adjustment layer, serta beberapa track audio. Graphic digunakan untuk menampilkan elemen teks pada video, sementara adjustment layer membantu memberikan penyesuaian visual secara konsisten pada beberapa footage.
+            </p>
+            <div class="project-tech">
+              <span>Color Correction</span><span>Timeline Management</span><span>isual Storytelling</span><span>Video Editing</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project" data-aos="fade-up" data-aos-delay="300">
+          <div class="project-image">
+            <img src="rivapr3.png" alt="Realtime Chat" />
+          </div>
+          <div class="project-body">
+            <div class="project-top">
+              <h3>Educational Podcast Video</h3>
+              <div class="project-links">
+                <a href="#" target="_blank" rel="noopener">Demo</a>
+                <a href="#" target="_blank" rel="noopener">GitHub</a>
+              </div>
+            </div>
+            <p>proses produksi video podcast edukasi dengan format talking-head, di mana pembicara menyampaikan informasi secara langsung kepada penonton. Video diedit menggunakan Adobe Premiere Pro dengan fokus pada penyusunan footage, subtitle, visual enhancement, dan motion graphics agar konten lebih komunikatif, 
+                Pada bagian preview terlihat pembicara berada di tengah frame dengan subtitle berwarna orange di bagian bawah. Subtitle tersebut membantu menampilkan poin atau ucapan penting sehingga informasi lebih mudah diikuti oleh penonton.
+            </p>
+            <div class="project-tech">
+              <span>Talking Head Editing</span><span>Motion Graphics</span><span>Typography</span><span>Audio Editing</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Contact</h2>
+      <p class="contact-text" data-aos="fade-up" data-aos-delay="100">Tertarik bekerja sama? Silakan hubungi saya.</p>
+      <div class="contact-list" data-aos="fade-up" data-aos-delay="200">
+        <a href="mailto:email@anda.com">rivarovani82@gmail.com</a>
+        <a href="https://github.com/username" target="_blank" rel="noopener">+62 857-1220-0649</a>
+        <a href="https://linkedin.com/in/username" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Riva Rovani · Vidio Grafis</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="script.js"></script>
+
+  <!-- ================= JAVASCRIPT ================= -->
+<script>
+    // AOS
+AOS.init({
+  duration: 700,
+  easing: "ease-out-cubic",
+  once: true,
+  offset: 80,
+});
+
+// Mobile menu
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+const navbar = document.querySelector(".navbar");
+
+menuBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
+
+navLinks.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("active");
+  });
+});
+
+// Navbar on scroll
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 30) {
+    navbar.classList.add("scrolled");
+  } else {
+    navbar.classList.remove("scrolled");
+  }
+});
+
+// Parallax
+const parallaxBg = document.getElementById("parallaxBg");
+window.addEventListener("scroll", () => {
+  if (parallaxBg) {
+    parallaxBg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+  }
+});
+
+// Scrollspy
+const sections = document.querySelectorAll("section[id]");
+const navItems = document.querySelectorAll(".nav-link");
+
+function updateScrollspy() {
+  const scrollPos = window.scrollY + 130;
+
+  sections.forEach((section) => {
+    const top = section.offsetTop;
+    const height = section.offsetHeight;
+    const id = section.getAttribute("id");
+
+    if (scrollPos >= top && scrollPos < top + height) {
+      navItems.forEach((item) => {
+        item.classList.remove("active");
+        if (item.getAttribute("href") === `#${id}`) {
+          item.classList.add("active");
+        }
+      });
+    }
+  });
+}
+
+window.addEventListener("scroll", updateScrollspy);
+window.addEventListener("load", updateScrollspy);
+</script>
+</body>
+</html>
